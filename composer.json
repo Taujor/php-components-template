@@ -1,0 +1,23 @@
+{
+    "name": "taujor/water.co",
+    "description": "affiliate marketing website for water filters and testing kits",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Taujor\\WaterCo\\": "src/"
+        },
+        "files": [
+            "config/routes.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "jordan tauscher"
+        }
+    ],
+    "require": {
+        "php-di/php-di": "^7.0",
+        "nikic/fast-route": "^1.3"
+    }
+}
