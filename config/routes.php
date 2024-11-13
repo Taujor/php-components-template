@@ -1,6 +1,6 @@
 <?php
 
-namespace Taujor\WaterCo;
+namespace Taujor\Parkstars;
 
 use FastRoute\RouteCollector;
 
@@ -9,6 +9,30 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->get('/', function() {
         require_once __DIR__ . '/../src/templates/home.php';
         echo home();
+    });
+
+    $r->addRoute('GET', '/public/{file:.+}', function($vars) {
+        $filePath = __DIR__ . '/../public/' . $vars['file'];
+        if (file_exists($filePath)) {
+            $mimeType = mime_content_type($filePath);
+            switch (pathinfo($filePath, PATHINFO_EXTENSION)) {
+                case 'css':
+                    header('Content-Type: text/css');
+                    break;
+                case 'js':
+                    header('Content-Type: text/javascript');
+                    break;
+                case 'json':
+                    header('Content-Type: application/json');
+                    break;
+                default:
+                    header('Content-Type: ' . $mimeType);
+                    break;
+            }
+            echo readfile($filePath);
+        } else {
+            header('HTTP/1.0 404 Not Found');
+        }
     });
     
 });
